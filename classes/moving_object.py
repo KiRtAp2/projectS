@@ -2,6 +2,7 @@ import pygame
 from pygame.transform import rotate
 import consts
 from classes import static_object
+import math
 
 
 class MovingObject(static_object.StaticObject):
@@ -11,9 +12,13 @@ class MovingObject(static_object.StaticObject):
         self.dx = self.dy = 0
         self.rotation = 0
         self.image = image
+        self.velocity = 0
 
     def move(self):
-        """Move self self.dx units right and self.dy units down, don't allow going out of screen"""
+        """Calculate self.dx, self.dy and move self self.dx units right and self.dy units down"""
+        self.dx = math.sin(math.radians(self.rotation)) * self.velocity
+        self.dy = math.cos(math.radians(self.rotation)) * self.velocity
+
         self.x += self.dx
         self.y += self.dy
 
@@ -42,3 +47,5 @@ class MovingObject(static_object.StaticObject):
     def set_rotation(self, rotation):
         """Set self.rotation to rotation. Should only be used for debug purposes!"""
         self.rotation = rotation
+
+
