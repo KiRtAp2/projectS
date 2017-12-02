@@ -40,5 +40,5 @@ class MovingObject(static_object.StaticObject):
         w.blit(rotated_image, (self.x, self.y))
 
     def set_rotation(self, rotation):
-        """Set self.rotation to rotation"""
+        """Set self.rotation to rotation. Should only be used for debug purposes!"""
         self.rotation = rotation
