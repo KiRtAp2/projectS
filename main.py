@@ -24,7 +24,12 @@ def main():
 
             if e.type == pygame.KEYDOWN:
 
-                pass
+                if e.key == pygame.K_w:
+
+                    pass
+
+            if e.type == pygame.MOUSEMOTION:
+                pl.rotate(pygame.mouse.get_pos())
 
         window.fill(colors.WHITE)
         pl.show(window)
