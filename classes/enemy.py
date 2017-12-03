@@ -8,9 +8,10 @@ import math
 
 class Enemy(moving_object.MovingObject):
 
-    def __init__(self, totem_pos):
+    def __init__(self, totem_pos, curr_score):
         super(Enemy, self).__init__(rand_pos(), SIZE, textures["enemy"])
-        self.velocity =  -consts.ENEMY_VELOCITY
+        self.velocity = -int(consts.START_ENEMY_VELOCITY*curr_score*0.15+1)
+        print(self.velocity)
         try:
             opp = -self.x - self.sx/2 + totem_pos[0]
             adj = totem_pos[1] - self.y + self.sy/2

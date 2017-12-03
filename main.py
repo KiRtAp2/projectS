@@ -53,7 +53,7 @@ def main():
                 pl.rotate(pygame.mouse.get_pos())
 
             if e.type == events.ENEMY_SPAWN:
-                enemy_list.append(enemy.Enemy(t.get_pos()))
+                enemy_list.append(enemy.Enemy(t.get_pos(), score))
 
         window.fill(colors.WHITE)
         t.show(window)

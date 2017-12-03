@@ -2,7 +2,6 @@ import consts
 from classes import static_object
 from utility.randomgen import rand_pos
 from utility.texture_loader import textures
-from pygame.transform import rotate
 
 
 class Totem(static_object.StaticObject):
