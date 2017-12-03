@@ -1,5 +1,6 @@
 import pygame
-import colors
+
+from utility import colors
 
 
 class StaticObject(object):

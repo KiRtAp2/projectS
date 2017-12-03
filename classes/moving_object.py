@@ -15,7 +15,8 @@ class MovingObject(static_object.StaticObject):
         self.velocity = 0
 
     def move(self):
-        """Calculate self.dx, self.dy and move self self.dx units right and self.dy units down"""
+        """Calculate self.dx, self.dy and move self self.dx units right and self.dy units down
+        Return True if object is at edge"""
         self.dx = math.sin(math.radians(self.rotation)) * self.velocity
         self.dy = math.cos(math.radians(self.rotation)) * self.velocity
 
@@ -24,15 +25,19 @@ class MovingObject(static_object.StaticObject):
 
         if self.x < 0:
             self.x = 0
+            return True
 
         if self.x+self.sx > consts.WWIDTH:
             self.x = consts.WWIDTH-self.sx
+            return True
 
         if self.y < 0:
             self.y = 0
+            return True
 
         if self.y+self.sy > consts.WHEIGHT:
             self.y = consts.WHEIGHT-self.sy
+            return True
 
     def rotate(self, degrees):
         """Rotate self by degrees counterclockwise"""
