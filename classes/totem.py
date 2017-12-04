@@ -7,7 +7,7 @@ from utility.texture_loader import textures
 class Totem(static_object.StaticObject):
 
     def __init__(self):
-        super(Totem, self).__init__(rand_pos(), consts.TOTEM_SIZE)
+        super(Totem, self).__init__(rand_pos(*consts.TOTEM_SIZE), consts.TOTEM_SIZE)
         self.image = textures["totem"]
 
     def show(self, w):
