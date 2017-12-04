@@ -52,6 +52,10 @@ def main():
             if e.type == pygame.MOUSEMOTION:
                 pl.rotate(pygame.mouse.get_pos())
 
+            if e.type == pygame.MOUSEBUTTONDOWN:
+                if e.button==1:
+                    bullet_list.append(bullet.Bullet(pl))
+
             if e.type == events.ENEMY_SPAWN:
                 enemy_list.append(enemy.Enemy(t.get_pos(), score))
 
