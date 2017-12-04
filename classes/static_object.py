@@ -20,6 +20,7 @@ class StaticObject(object):
         """Draw a black box at self.x, self.y"""
         w.fill(colors.BLACK, (self.x, self.y, self.sx, self.sy))
 
+    @property
     def get_pos(self):
         """Return tuple (self.x, self.y)"""
         return self.x, self.y
