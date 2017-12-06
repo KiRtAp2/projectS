@@ -85,6 +85,35 @@ def main():
         clock.tick(consts.FRAMERATE)
 
 
+def pre_game_loop():
+	
+	running = True
+
+	while running:
+
+		for e in pygame.event.get():
+
+			if e.type == pygame.QUIT:
+				running = False
+
+			if e.type == pygame.KEYDOWN:
+
+				if e.key == pygame.K_RETURN:
+					running = False
+					main()
+					continue
+
+			if e.type == pygame.MOUSEBUTTONDOWN:
+
+				if e.button == 1:
+					running = False
+					main()
+					continue
+
+		window.fill(colors.WHITE)
+		pygame.display.update()
+
+
 def game_over():
     running = True
     while running:
@@ -100,4 +129,7 @@ def game_over():
 
 if __name__ == '__main__':
     pygame.init()
-    main()
+    pre_game_loop()
+
+
+pygame.quit()
