@@ -15,6 +15,7 @@ enemy_list = []
 score = 0
 
 pygame.time.set_timer(events.ENEMY_SPAWN, consts.ENEMY_SPAWN_DELAY*1000)
+pygame.display.set_caption("Igra za informatiko")
 
 
 def main():
