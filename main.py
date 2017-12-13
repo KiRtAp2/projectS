@@ -93,7 +93,6 @@ def pre_game_loop():
 
     sel = selector.Selector(SELECTOR_OPTIONS, (100, 100), autostart=True)
 
-
     while running:
 
         for e in pygame.event.get():
@@ -118,7 +117,7 @@ def pre_game_loop():
                 if e.key == pygame.K_UP:
                     sel.go_up()
 
-        if not running: # Odpravi bug, kjer se lahko po izhodu iz igre se enkrat pokaze zaslon za selekcijo
+        if not running:  # Odpravi bug, kjer se lahko po izhodu iz igre se enkrat pokaze zaslon za selekcijo
             continue
 
         window.fill(colors.WHITE)
