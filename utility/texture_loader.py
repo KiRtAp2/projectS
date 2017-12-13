@@ -6,4 +6,5 @@ textures = {
     "bullet": image("textures/bullet.png"),
     "enemy": image("textures/enemy.png"),
     "totem": image("textures/totem.png"),
+    "logo": image("textures/logo.png"),
 }

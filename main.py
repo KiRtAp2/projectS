@@ -4,6 +4,7 @@ import events
 from classes import bullet, player, enemy, totem
 from consts import WHEIGHT, WWIDTH
 from utility import colors, text, selector
+from utility.texture_loader import textures
 
 window = pygame.display.set_mode((WWIDTH, WHEIGHT))
 clock = pygame.time.Clock()
@@ -89,9 +90,9 @@ def pre_game_loop():
     
     running = True
 
-    SELECTOR_OPTIONS = ["Play", "Exit", "Some_sel", "Some_other"]
+    SELECTOR_OPTIONS = ["Play", "Exit"]
 
-    sel = selector.Selector(SELECTOR_OPTIONS, (100, 100), autostart=True)
+    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True)
 
     while running:
 
@@ -122,6 +123,7 @@ def pre_game_loop():
 
         window.fill(colors.WHITE)
         sel.show(window)
+        window.blit(textures["logo"], (WWIDTH*0.1, WHEIGHT*0.1))
         pygame.display.update()
 
 
