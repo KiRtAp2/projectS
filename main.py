@@ -22,6 +22,7 @@ pygame.display.set_caption("Igra za informatiko")
 def main():
     global score
     running = True
+    score = 0
 
     while running:
 
@@ -128,15 +129,41 @@ def pre_game_loop():
 
 
 def game_over():
+
+    SELECTOR_OPTIONS = ["Title screen", "Exit"]
+
+    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.6), autostart=True)
+
     running = True
     while running:
         for e in pygame.event.get():
+
             if e.type == pygame.QUIT:
                 running = False
 
+            if e.type == pygame.KEYDOWN:
+
+                if e.key == pygame.K_DOWN:
+                    sel.go_down()
+
+                if e.key == pygame.K_UP:
+                    sel.go_up()
+
+                if e.key == pygame.K_RETURN:
+
+                    if sel.get_selected_el() == "Exit":
+                        running = False
+                        continue
+
+                    if sel.get_selected_el() == "Title screen":
+                        pre_game_loop()
+                        running = False
+                        continue
+
         window.fill(colors.WHITE)
-        window.blit(text.get_surf("GAME OVER", colors.BLACK, 50), (WWIDTH*0.3, WHEIGHT*0.4))
-        window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.3, WHEIGHT*0.5))
+        window.blit(text.get_surf("GAME OVER", colors.BLACK, 50), (WWIDTH*0.2, WHEIGHT*0.4))
+        window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.2, WHEIGHT*0.5))
+        sel.show(window)
         pygame.display.update()
 
 

@@ -6,6 +6,10 @@ class AlreadyStartedException(Exception):
     pass
 
 
+class NotStartedException(Exception):
+    pass
+
+
 class Selector(object):
     
     def __init__(self, choices, startpos, fontsize=35, autostart=False):
@@ -35,17 +39,32 @@ class Selector(object):
         self.selected = 0
 
     def go_down(self):
+        if not self.started:
+            raise NotStartedException
+
         self.selected += 1
         if self.selected == len(self.choices):
             self.selected = 0
 
     def go_up(self):
+        if not self.started:
+            raise NotStartedException
+
         self.selected -= 1
         if self.selected < 0:
             self.selected = len(self.choices)-1
 
     def get_selected_num(self):
+        if not self.started:
+            raise NotStartedException
+
         return self.selected
 
     def get_selected_el(self):
+        if not self.started:
+            raise NotStartedException
+
         return self.choices[self.selected]
+
+    def get_started(self):
+        return self.started
