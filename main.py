@@ -3,7 +3,7 @@ import consts
 import events
 from classes import bullet, player, enemy, totem
 from consts import WHEIGHT, WWIDTH
-from utility import colors, text
+from utility import colors, text, selector
 
 window = pygame.display.set_mode((WWIDTH, WHEIGHT))
 clock = pygame.time.Clock()
@@ -86,32 +86,44 @@ def main():
 
 
 def pre_game_loop():
-	
-	running = True
+    
+    running = True
 
-	while running:
+    SELECTOR_OPTIONS = ["Play", "Exit", "Some_sel", "Some_other"]
 
-		for e in pygame.event.get():
+    sel = selector.Selector(SELECTOR_OPTIONS, (100, 100), autostart=True)
 
-			if e.type == pygame.QUIT:
-				running = False
 
-			if e.type == pygame.KEYDOWN:
+    while running:
 
-				if e.key == pygame.K_RETURN:
-					running = False
-					main()
-					continue
+        for e in pygame.event.get():
 
-			if e.type == pygame.MOUSEBUTTONDOWN:
+            if e.type == pygame.QUIT:
+                running = False
 
-				if e.button == 1:
-					running = False
-					main()
-					continue
+            if e.type == pygame.KEYDOWN:
 
-		window.fill(colors.WHITE)
-		pygame.display.update()
+                if e.key == pygame.K_RETURN:
+                    if sel.get_selected_el() == "Exit":
+                        running = False
+
+                    if sel.get_selected_el() == "Play":
+                        running = False
+                        main()
+                        continue
+
+                if e.key == pygame.K_DOWN:
+                    sel.go_down()
+
+                if e.key == pygame.K_UP:
+                    sel.go_up()
+
+        if not running: # Odpravi bug, kjer se lahko po izhodu iz igre se enkrat pokaze zaslon za selekcijo
+            continue
+
+        window.fill(colors.WHITE)
+        sel.show(window)
+        pygame.display.update()
 
 
 def game_over():
