@@ -161,7 +161,7 @@ def game_over():
                         continue
 
         window.fill(colors.WHITE)
-        window.blit(text.get_surf("GAME OVER", colors.BLACK, 50), (WWIDTH*0.2, WHEIGHT*0.4))
+        window.blit(textures["game_over"], (WWIDTH*0.1, WHEIGHT*0.1))
         window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.2, WHEIGHT*0.5))
         sel.show(window)
         pygame.display.update()
