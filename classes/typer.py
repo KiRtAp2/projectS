@@ -50,6 +50,10 @@ class TypingField(object):
             self.field_length -= 1
             return True
 
+        elif c.get_value() == 32:
+            self.field += " "
+            self.field_length += 1
+
         elif 97 <= c.get_value() <= 122:
             if self.field_length >= self.max_length:
                 raise TooLongException

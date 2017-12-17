@@ -1,7 +1,7 @@
 import pygame
 import consts
 import events
-from classes import bullet, player, enemy, totem
+from classes import bullet, player, enemy, totem, typer
 from consts import WHEIGHT, WWIDTH
 from utility import colors, text, selector
 from utility.texture_loader import textures
@@ -96,29 +96,45 @@ def pre_game_loop():
 
     sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True)
 
+    typing = False
+    typing_field = typer.TypingField()
+
     while running:
 
         for e in pygame.event.get():
 
-            if e.type == pygame.QUIT:
-                running = False
+            if not typing:
+                if e.type == pygame.QUIT:
+                    running = False
 
-            if e.type == pygame.KEYDOWN:
+                if e.type == pygame.KEYDOWN:
 
-                if e.key == pygame.K_RETURN:
-                    if sel.get_selected_el() == "Exit":
-                        running = False
+                    if e.key == pygame.K_RETURN:
+                        if sel.get_selected_el() == "Exit":
+                            running = False
 
-                    if sel.get_selected_el() == "Play":
-                        running = False
-                        main()
-                        continue
+                        if sel.get_selected_el() == "Play":
+                            running = False
+                            main()
+                            continue
 
-                if e.key == pygame.K_DOWN:
-                    sel.go_down()
+                    if e.key == pygame.K_DOWN:
+                        sel.go_down()
 
-                if e.key == pygame.K_UP:
-                    sel.go_up()
+                    if e.key == pygame.K_UP:
+                        sel.go_up()
+
+                    if e.key == pygame.K_p:
+                        typing = True
+            else:
+                if e.type == pygame.QUIT:
+                    running = False
+
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_ESCAPE:
+                        typing = False
+                    else:
+                        typing_field.type(e.key)
 
         if not running:  # Odpravi bug, kjer se lahko po izhodu iz igre se enkrat pokaze zaslon za selekcijo
             continue
@@ -126,6 +142,7 @@ def pre_game_loop():
         window.fill(colors.WHITE)
         sel.show(window)
         window.blit(textures["logo"], (WWIDTH*0.1, WHEIGHT*0.1))
+        window.blit(typing_field.get_surf(), (WWIDTH*0.1, WHEIGHT*0.8))
         pygame.display.update()
 
 
