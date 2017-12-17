@@ -58,7 +58,7 @@ class TypingField(object):
             if self.field_length >= self.max_length:
                 raise TooLongException
 
-            self.field += str(c.get_value())
+            self.field += chr(c.get_value())
             self.field_length += 1
             return True
 
