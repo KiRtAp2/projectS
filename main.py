@@ -59,8 +59,6 @@ def main():
 
         window.fill(colors.WHITE)
         t.show(window)
-        pl.move()
-        pl.show(window)
 
         for b in bullet_list:
             if b.move():
@@ -82,6 +80,9 @@ def main():
                 game_over()
                 running = False
                 continue
+
+        pl.move()
+        pl.show(window)
 
         pygame.display.update()
         clock.tick(consts.FRAMERATE)
