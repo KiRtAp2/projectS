@@ -30,7 +30,6 @@ def main():
     enemy_list = []
     score = 0
 
-
     while running:
 
         for e in pygame.event.get():
@@ -141,7 +140,10 @@ def pre_game_loop():
                     if e.key == pygame.K_ESCAPE:
                         typing = False
                     else:
-                        typing_field.type(e.key)
+                        try:
+                            typing_field.type(e.key)
+                        except typer.InvalidCharacterException:
+                            pass
 
         window.fill(colors.WHITE)
         sel.show(window)
