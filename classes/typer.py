@@ -38,6 +38,7 @@ class TypingField(object):
         self.done = False
 
     def type(self, event_key):
+        print(event_key)
         c = TypingChar(event_key)
         if c.get_value() == 13:
             if self.field_length < self.min_length:
@@ -50,11 +51,15 @@ class TypingField(object):
             self.field_length -= 1
             return True
 
+        elif c.get_value() == 32:
+            self.field += " "
+            self.field_length += 1
+
         elif 97 <= c.get_value() <= 122:
             if self.field_length >= self.max_length:
                 raise TooLongException
 
-            self.field += str(c.get_value())
+            self.field += chr(c.get_value())
             self.field_length += 1
             return True
 
