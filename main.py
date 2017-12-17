@@ -102,6 +102,7 @@ def pre_game_loop():
 
     sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True)
 
+    # testing
     typing = False
     typing_field = typer.TypingField()
 
@@ -109,7 +110,7 @@ def pre_game_loop():
 
         for e in pygame.event.get():
 
-            if not typing:
+            if not typing:  # testing
                 if e.type == pygame.QUIT:
                     running = False
 
@@ -132,13 +133,17 @@ def pre_game_loop():
 
                     if e.key == pygame.K_p:
                         typing = True
-            else:
+
+            else:  # testing
+
                 if e.type == pygame.QUIT:
                     running = False
 
                 if e.type == pygame.KEYDOWN:
+
                     if e.key == pygame.K_ESCAPE:
                         typing = False
+
                     else:
                         try:
                             typing_field.type(e.key)

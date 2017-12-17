@@ -27,8 +27,8 @@ EVENTS_TO_CHARACTERS = {
     118: 'v',
     119: 'w',
     120: 'x',
-    121: 'y',
-    122: 'z',
+    121: 'z',
+    122: 'y',
     13: 'RETURN',
     32: ' ',
     46: '.',
@@ -83,7 +83,7 @@ class TypingChar(object):
 class TypingField(object):
     """This is where the user can type. Experimental."""
 
-    def __init__(self, min_length=1, max_length=value_consts.inf, color=colors.BLACK, text_size=30):
+    def __init__(self, min_length=1, max_length=value_consts.inf, color=colors.BLACK, text_size=30, display_ending=True):
         self.max_length = max_length
         self.min_length = min_length
         self.field = ""
@@ -91,6 +91,7 @@ class TypingField(object):
         self.color = color
         self.text_size = text_size
         self.done = False
+        self.display_ending = display_ending
 
     def type(self, event_key: int):
         """Call with event key that comes on event manager if you have no better use for the event"""
@@ -121,4 +122,8 @@ class TypingField(object):
 
     def get_surf(self):
         """Return surface to blit to screen"""
-        return text.get_surf(self.field, self.color, self.text_size)
+        return text.get_surf(
+            self.field+'|' if self.display_ending else self.field,
+            self.color,
+            self.text_size
+        )
