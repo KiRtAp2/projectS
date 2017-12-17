@@ -20,9 +20,16 @@ pygame.display.set_caption("Igra za informatiko")
 
 
 def main():
-    global score
+    global score, pl, t, bullet_list, enemy_list
     running = True
+
+    # resets game state after playing again
+    pl = player.Player()
+    t = totem.Totem()
+    bullet_list = []
+    enemy_list = []
     score = 0
+
 
     while running:
 
@@ -135,9 +142,6 @@ def pre_game_loop():
                         typing = False
                     else:
                         typing_field.type(e.key)
-
-        if not running:  # Odpravi bug, kjer se lahko po izhodu iz igre se enkrat pokaze zaslon za selekcijo
-            continue
 
         window.fill(colors.WHITE)
         sel.show(window)
