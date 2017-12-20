@@ -103,11 +103,11 @@ def pre_game_loop():
     
     running = True
 
+    # selector
     SELECTOR_OPTIONS = ["Play", "Exit"]
-
     sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True)
 
-    # testing
+    # login
     typing = False
     typing_field = typer.TypingField(start_text=user.get_name())
 
@@ -168,7 +168,7 @@ def game_over():
 
     SELECTOR_OPTIONS = ["Title screen", "Exit"]
 
-    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.6), autostart=True)
+    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.1, WHEIGHT*0.6), autostart=True)
 
     running = True
     while running:
@@ -198,7 +198,8 @@ def game_over():
 
         window.fill(colors.WHITE)
         window.blit(textures["game_over"], (WWIDTH*0.1, WHEIGHT*0.1))
-        window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.2, WHEIGHT*0.5))
+        window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.1, WHEIGHT*0.45))
+        window.blit(text.get_surf("Highscore: "+str(user.get_highscore()), colors.BLACK, 30), (WWIDTH*0.1, WHEIGHT*0.5))
         sel.show(window)
         pygame.display.update()
 

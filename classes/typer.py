@@ -80,7 +80,7 @@ class TypingChar(object):
 
 
 class TypingField(object):
-    """This is where the user can type. Experimental."""
+    """This is where the user can type."""
 
     def __init__(self, min_length=1, max_length=value_consts.inf, color=colors.BLACK, text_size=30, display_ending=True, start_text=""):
         self.max_length = max_length

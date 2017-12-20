@@ -61,3 +61,9 @@ class UserLoader(object):
 
     def get_name(self):
         return self.username
+
+    def get_highscore(self):
+        if self.check_score:
+            return max((self.user.score, self.d['scores'][find_dict(self.d['scores'], "name", self.username)]['score']))
+        else:
+            return None
