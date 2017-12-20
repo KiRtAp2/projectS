@@ -1,4 +1,3 @@
-import pygame
 from utility import value_consts, text, colors
 
 
