@@ -1,3 +1,9 @@
 {
-
+	"users": ["testuser"],
+	"scores": [
+		{
+			"user": "testuser",
+			"score": 0
+		}
+	]
 }

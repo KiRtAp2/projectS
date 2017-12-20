@@ -95,7 +95,6 @@ class TypingField(object):
 
     def type(self, event_key: int):
         """Call with event key that comes on event manager if you have no better use for the event"""
-        print(event_key)
         c = TypingChar(event_key)
         if c.get_value() == 'RETURN':
             if self.field_length < self.min_length:
@@ -127,3 +126,7 @@ class TypingField(object):
             self.color,
             self.text_size
         )
+
+    def get_text(self):
+        """Return text"""
+        return self.field

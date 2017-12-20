@@ -5,6 +5,7 @@ from classes import bullet, player, enemy, totem, typer
 from consts import WHEIGHT, WWIDTH
 from utility import colors, text, selector
 from utility.texture_loader import textures
+from highscore.highscore import UserLoader
 
 window = pygame.display.set_mode((WWIDTH, WHEIGHT))
 clock = pygame.time.Clock()
@@ -14,6 +15,7 @@ t = totem.Totem()
 bullet_list = []
 enemy_list = []
 score = 0
+user = UserLoader()
 
 pygame.time.set_timer(events.ENEMY_SPAWN, consts.ENEMY_SPAWN_DELAY*1000)
 pygame.display.set_caption("Igra za informatiko")
@@ -80,6 +82,8 @@ def main():
                     bullet_list.remove(b)
                     enemy_list.remove(e)
                     score += 1
+                    user.scoreup(score)
+                    user.update_file()
 
         for e in enemy_list:
             if e.is_hit_by(t):
@@ -134,7 +138,7 @@ def pre_game_loop():
                     if e.key == pygame.K_p:
                         typing = True
 
-            else:  # testing
+            else:  # type name
 
                 if e.type == pygame.QUIT:
                     running = False
@@ -143,8 +147,10 @@ def pre_game_loop():
 
                     if e.key == pygame.K_ESCAPE:
                         typing = False
+                        user = UserLoader(username=typing_field.get_text())
 
                     else:
+
                         try:
                             typing_field.type(e.key)
                         except typer.InvalidCharacterException:
@@ -199,6 +205,4 @@ def game_over():
 if __name__ == '__main__':
     pygame.init()
     pre_game_loop()
-
-
-pygame.quit()
+    pygame.quit()
