@@ -109,7 +109,7 @@ def pre_game_loop():
 
     # testing
     typing = False
-    typing_field = typer.TypingField()
+    typing_field = typer.TypingField(start_text=user.get_name())
 
     while running:
 

@@ -30,6 +30,7 @@ class UserLoader(object):
     def __init__(self, filepath="highscore/", filename="highscores.json", username=""):
         if username == "":
             self.check_score = False
+            self.username = ""
         else:
             self.check_score = True
             self.file = filepath+filename
@@ -44,9 +45,9 @@ class UserLoader(object):
                 useri = find_dict(self.d['scores'], "name", self.username)
                 self.user = User(self.d['scores'][useri])
             else:
-                self.user = User(dict(user=self.username, score=0))
+                self.user = User(dict(name=self.username, score=0))
                 self.d['users'].append(self.username)
-                self.d['scores'].append(dict(user=self.username, score=0))
+                self.d['scores'].append(dict(name=self.username, score=0))
 
     def scoreup(self, new_score):
         if self.check_score:
@@ -57,3 +58,6 @@ class UserLoader(object):
             self.d['scores'][find_dict(self.d['scores'], "name", self.username)] = self.user.get_dict()
             fobj = open(self.file, 'w')
             json.dump(self.d, fobj)
+
+    def get_name(self):
+        return self.username
