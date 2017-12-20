@@ -99,6 +99,7 @@ def main():
 
 
 def pre_game_loop():
+    global user
     
     running = True
 

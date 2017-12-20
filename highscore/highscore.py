@@ -12,7 +12,7 @@ class User(object):
 
     def __init__(self, d):
         # d je dictionary, kot je zapisan v highscores.json
-        self.name = d["user"]
+        self.name = d["name"]
         self.score = d["score"]
         self.changed = False
 
@@ -41,12 +41,12 @@ class UserLoader(object):
 
             self.user = None
             if self.username in self.d['users']:
-                useri = find_dict(self.d['scores'], "user", self.username)
+                useri = find_dict(self.d['scores'], "name", self.username)
                 self.user = User(self.d['scores'][useri])
             else:
-                self.user = User( dict(user=self.username, score=0) )
+                self.user = User(dict(user=self.username, score=0))
                 self.d['users'].append(self.username)
-                self.d['scores'].append( dict(user=self.username, score=0) )
+                self.d['scores'].append(dict(user=self.username, score=0))
 
     def scoreup(self, new_score):
         if self.check_score:
@@ -54,5 +54,6 @@ class UserLoader(object):
 
     def update_file(self):
         if self.check_score:
+            self.d['scores'][find_dict(self.d['scores'], "name", self.username)] = self.user.get_dict()
             fobj = open(self.file, 'w')
             json.dump(self.d, fobj)
