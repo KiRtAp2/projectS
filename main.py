@@ -1,11 +1,12 @@
 import pygame
+
 import consts
 import events
-from classes import bullet, player, enemy, totem, typer
+from classes import bullet, player, enemy, totem
 from consts import WHEIGHT, WWIDTH
-from utility import colors, text, selector
-from utility.texture_loader import textures
 from highscore.highscore import UserLoader
+from utility import colors, text, selector, typer
+from utility.texture_loader import textures
 
 window = pygame.display.set_mode((WWIDTH, WHEIGHT))
 clock = pygame.time.Clock()
@@ -65,7 +66,7 @@ def main():
             if e.type == events.ENEMY_SPAWN:
                 enemy_list.append(enemy.Enemy(t.get_pos, score))
 
-        window.fill(colors.WHITE)
+        window.blit(textures["background"], (0, 0))
         t.show(window)
 
         for b in bullet_list:
@@ -104,12 +105,12 @@ def pre_game_loop():
     running = True
 
     # selector
-    SELECTOR_OPTIONS = ["Play", "Exit"]
-    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True)
+    SELECTOR_OPTIONS = ["Igraj", "Prijava", "Izhod"]
+    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.2, WHEIGHT*0.45), autostart=True, color=colors.WHITE)
 
     # login
     typing = False
-    typing_field = typer.TypingField(start_text=user.get_name())
+    typing_field = typer.TypingField(start_text=user.get_name(), color=colors.WHITE, min_length=0)
 
     while running:
 
@@ -122,10 +123,14 @@ def pre_game_loop():
                 if e.type == pygame.KEYDOWN:
 
                     if e.key == pygame.K_RETURN:
-                        if sel.get_selected_el() == "Exit":
+                        if sel.get_selected_el() == "Izhod":
                             running = False
 
-                        if sel.get_selected_el() == "Play":
+                        if sel.get_selected_el() == "Prijava":
+                            typing = True
+                            continue
+
+                        if sel.get_selected_el() == "Igraj":
                             running = False
                             main()
                             continue
@@ -136,7 +141,7 @@ def pre_game_loop():
                     if e.key == pygame.K_UP:
                         sel.go_up()
 
-                    if e.key == pygame.K_p:
+                    if e.key == pygame.K_l:
                         typing = True
 
             else:  # type name
@@ -146,7 +151,7 @@ def pre_game_loop():
 
                 if e.type == pygame.KEYDOWN:
 
-                    if e.key == pygame.K_ESCAPE:
+                    if e.key == pygame.K_ESCAPE or e.key == pygame.K_RETURN:
                         typing = False
                         user = UserLoader(username=typing_field.get_text())
 
@@ -157,18 +162,20 @@ def pre_game_loop():
                         except typer.InvalidCharacterException:
                             pass
 
-        window.fill(colors.WHITE)
+        window.blit(textures["background"], (0, 0))
         sel.show(window)
         window.blit(textures["logo"], (WWIDTH*0.1, WHEIGHT*0.1))
         window.blit(typing_field.get_surf(), (WWIDTH*0.1, WHEIGHT*0.8))
+        if typing:
+            window.blit(text.get_surf("Pritisni ESC za potrditev", colors.WHITE, 18), (WWIDTH*0.1, WHEIGHT*0.9))
         pygame.display.update()
 
 
 def game_over():
 
-    SELECTOR_OPTIONS = ["Title screen", "Exit"]
+    SELECTOR_OPTIONS = ["Naslovna stran", "Izhod"]
 
-    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.1, WHEIGHT*0.6), autostart=True)
+    sel = selector.Selector(SELECTOR_OPTIONS, (WWIDTH*0.1, WHEIGHT*0.6), autostart=True, color=colors.WHITE)
 
     running = True
     while running:
@@ -187,19 +194,19 @@ def game_over():
 
                 if e.key == pygame.K_RETURN:
 
-                    if sel.get_selected_el() == "Exit":
+                    if sel.get_selected_el() == "Izhod":
                         running = False
                         continue
 
-                    if sel.get_selected_el() == "Title screen":
+                    if sel.get_selected_el() == "Naslovna stran":
                         pre_game_loop()
                         running = False
                         continue
 
-        window.fill(colors.WHITE)
+        window.blit(textures["background"], (0, 0))
         window.blit(textures["game_over"], (WWIDTH*0.1, WHEIGHT*0.1))
-        window.blit(text.get_surf("Score: "+str(score), colors.BLACK, 30), (WWIDTH*0.1, WHEIGHT*0.45))
-        window.blit(text.get_surf("Highscore: "+str(user.get_highscore()), colors.BLACK, 30), (WWIDTH*0.1, WHEIGHT*0.5))
+        window.blit(text.get_surf("Rezultat: "+str(score), colors.WHITE, 30), (WWIDTH*0.1, WHEIGHT*0.45))
+        window.blit(text.get_surf("Najvisji rezultat: "+str(user.get_highscore()), colors.WHITE, 30), (WWIDTH*0.1, WHEIGHT*0.5))
         sel.show(window)
         pygame.display.update()
 

@@ -8,4 +8,5 @@ textures = {
     "totem": image("textures/totem.png"),
     "logo": image("textures/logo.png"),
     "game_over": image("textures/game_over.png"),
+    "background": image("textures/background.png"),
 }

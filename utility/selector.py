@@ -12,12 +12,13 @@ class NotStartedException(Exception):
 
 class Selector(object):
     
-    def __init__(self, choices, startpos, fontsize=35, autostart=False):
+    def __init__(self, choices, startpos, fontsize=35, autostart=False, color=colors.BLACK):
         self.choices = choices
         self.x, self.y = startpos
         self.font_size = fontsize
         self.selected = None
         self.started = False
+        self.color = color
         if autostart: 
             self.start_choosing()
 
@@ -26,9 +27,9 @@ class Selector(object):
         curr_y = self.y
 
         for i, c in enumerate(self.choices):
-            window.blit(text.get_surf(str(c), colors.BLACK, self.font_size), (curr_x, curr_y))
+            window.blit(text.get_surf(str(c), self.color, self.font_size), (curr_x, curr_y))
             if self.selected == i:
-                window.fill(colors.BLACK, (curr_x-20, curr_y+self.font_size*0.2, 10, 10))
+                window.fill(self.color, (curr_x-20, curr_y+self.font_size*0.2, 10, 10))
             curr_y += self.font_size + 2
 
     def start_choosing(self):
