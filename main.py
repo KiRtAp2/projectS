@@ -22,6 +22,7 @@ pygame.time.set_timer(events.ENEMY_SPAWN, consts.ENEMY_SPAWN_DELAY*1000)
 pygame.display.set_caption("Igra za informatiko")
 pygame.display.set_icon(textures["icon"])
 
+
 def main():
     global score, pl, t, bullet_list, enemy_list
     running = True
