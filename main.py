@@ -79,6 +79,7 @@ def main():
         for e in enemy_list:
             e.move()
             e.show(window)
+            hit = False
             for b in bullet_list:
                 if e.is_hit_by(b):
                     bullet_list.remove(b)
@@ -86,12 +87,23 @@ def main():
                     score += 1
                     user.scoreup(score)
                     user.update_file()
+                    hit = True
+                    break
+            if hit:
+                continue
+
+            if e.is_hit_by(pl):
+                enemy_list.remove(e)
+                score += 2
+                user.scoreup(score)
+                user.update_file()
+
 
         for e in enemy_list:
             if e.is_hit_by(t):
                 game_over()
                 running = False
-                continue
+                break
 
         pl.move()
         pl.show(window)

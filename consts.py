@@ -1,3 +1,5 @@
+import sys
+
 WHEIGHT = 800
 WWIDTH = 800
 FRAMERATE = 60
@@ -6,7 +8,7 @@ PLAYER_START_POS = (WHEIGHT*0.45, WWIDTH*0.45)
 PLAYER_SIZE = (49, 49)
 PLAYER_SPEED = 5
 
-DEBUG = True
+DEBUG = False
 
 BULLET_SIZE = (10, 5)
 BULLET_SPEED = 15
@@ -16,3 +18,7 @@ ENEMY_SPAWN_DELAY = 1  # seconds
 START_ENEMY_VELOCITY = 1
 
 TOTEM_SIZE = (40, 40)
+
+TRACK_HIGH_SCORES = True
+if "-noscore" in sys.argv or "-ns" in sys.argv:
+	TRACK_HIGH_SCORES = False

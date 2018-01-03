@@ -1,4 +1,5 @@
 import json
+import consts
 
 
 def find_dict(l, key, value):
@@ -48,6 +49,9 @@ class UserLoader(object):
                 self.user = User(dict(name=self.username, score=0))
                 self.d['users'].append(self.username)
                 self.d['scores'].append(dict(name=self.username, score=0))
+                
+        if not consts.TRACK_HIGH_SCORES:
+        	self.check_score = False
 
     def scoreup(self, new_score):
         if self.check_score:
