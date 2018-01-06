@@ -70,6 +70,8 @@ def main():
         window.blit(textures["background"], (0, 0))
         t.show(window)
 
+        pl.move()
+
         for b in bullet_list:
             if b.move():
                 bullet_list.remove(b)
@@ -98,14 +100,12 @@ def main():
                 user.scoreup(score)
                 user.update_file()
 
-
         for e in enemy_list:
             if e.is_hit_by(t):
                 game_over()
                 running = False
                 break
 
-        pl.move()
         pl.show(window)
 
         pygame.display.update()
