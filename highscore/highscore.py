@@ -1,3 +1,6 @@
+u"""Ta datoteka je odgovorna za beleženje najvišjih doseženih točk."""
+
+
 import json
 import consts
 
@@ -51,7 +54,7 @@ class UserLoader(object):
                 self.d['scores'].append(dict(name=self.username, score=0))
                 
         if not consts.TRACK_HIGH_SCORES:
-        	self.check_score = False
+            self.check_score = False
 
     def scoreup(self, new_score):
         if self.check_score:
